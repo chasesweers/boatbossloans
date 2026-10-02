@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# boatbossloans.com
 
-## Getting Started
+Education-first boat financing site for **Kim Sweers, The Boat Boss** (BOAT BOSS Enterprises). Buyers read the guide, then apply with Vantage Recreational Finance. BOAT BOSS is not a lender.
 
-First, run the development server:
+Requirements: `BOATBOSSLOANS SPEC.md` (v1.0, 2026-10-02). Decisions: [`docs/adr/`](docs/adr).
+
+## Status: Phase 1 MVP (pre-launch, `noindex`)
+
+Built: Home, `/guide` + 5 launch guide drafts, `/about`, `/disclosures`, `/privacy`, `/terms`, `/newsletter`, 404, Apply wiring, newsletter signup, analytics events, sitemap, robots, `llms.txt`, JSON-LD, OG images, security headers.
+
+Not yet: `/calculator`, `/media` (Phase 2), `/admin` dashboard (Phase 3).
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local
+npm run dev            # http://localhost:3000 (drafts visible)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Command | What it does |
+|---|---|
+| `npm test` | Unit + integration tests (Vitest). Includes the compliance scan of all content |
+| `npm run test:e2e` | Builds and runs Playwright: golden paths, compliance, axe WCAG AA, noindex, layout, desktop + mobile |
+| `npm run typecheck` | Route types + `tsc` |
+| `npm run lint` | ESLint |
+| `npm run build` | Production build (drafts excluded) |
+| `npm run images` | Rebuild `public/images` and brand marks from `assets/source` |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Guide pages: `content/guide/<slug>.mdx`. Frontmatter per spec §7. The question wording and group must match `lib/guideCatalog.ts`.
+- **A page only goes live when `published: true` and `compliance_approved: true`.** Set `compliance_approved` only after Vantage compliance signs off on that exact text.
+- Kim's insider takes in the drafts are placeholders; each has a comment to replace it with her own story.
+- Home copy: `content/home.ts`. About and legal pages: `content/pages/*.mdx` (placeholder text, marked "Pending review").
+- Never publish rates, APRs, payments, loan terms, down payment amounts, or "best rate"/"guaranteed approval" claims. `npm test` and the E2E suite fail if they appear.
 
-## Learn More
+### Reviewing drafts on a preview URL
+On Vercel, set `SHOW_DRAFTS=true` for the **Preview** environment only. Preview builds then render drafts with a red Draft banner (and send `X-Robots-Tag: noindex`). Production ignores the flag.
 
-To learn more about Next.js, take a look at the following resources:
+## Photos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Curated originals live in `assets/source/`; `npm run images` produces the web versions. Still needed from Kim:
+- Original hero sportfish photo (currently using `superyacht-dusk.jpg`).
+- `kim.jpg` (Kim beside a superyacht) for the About page and author box (currently a studio-wall placeholder; swap in `components/ui/KimPhoto.tsx`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Excluded on purpose: the sailfish photo (FB Marine Group cap and Contender shirt, spec §2.2). The studio-wall image is cropped above the "Presented by" sponsor line.
 
-## Deploy on Vercel
+## Environment variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+See [`.env.example`](.env.example).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Launch gates (spec §13). All required before setting `NEXT_PUBLIC_SITE_INDEXABLE=true`
+
+- [ ] Signed agreement with Vantage
+- [ ] Vantage tracked application link received and set as `NEXT_PUBLIC_APPLY_URL`
+- [ ] Vantage compliance approval of site and launch content (`compliance_approved: true` on approved pages)
+- [ ] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
+- [ ] Domain registered under BOAT BOSS Enterprises; `www` redirects to apex in Vercel
+- [ ] Lighthouse 90+ and accessibility check passed
+- [ ] Kim's final sign-off (including allowing AI crawlers in robots.txt)
+
+## Open items
+
+Newsletter provider (Kit adapter built), analytics choice (Plausible wired), social handles, contact email/phone, PWC/ATV/auto confirmation from Vantage, UTM parameters confirmation from Vantage.

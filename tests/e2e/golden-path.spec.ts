@@ -1,0 +1,44 @@
+import { test, expect } from "@playwright/test";
+
+test("visitor reads the guide and reaches Apply", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/finance your boat like a boss/i);
+
+  // Without NEXT_PUBLIC_APPLY_URL every Apply button falls back to #apply (spec §5).
+  const heroApply = page.getByRole("link", { name: /start your application/i }).first();
+  await expect(heroApply).toHaveAttribute("href", "#apply");
+  await expect(heroApply).toHaveAttribute("rel", "noopener");
+
+  await page.getByRole("link", { name: /read the guide first/i }).click();
+  await expect(page).toHaveURL(/\/guide$/);
+
+  await page.getByRole("link", { name: /can i finance a boat from a private seller/i }).click();
+  await expect(page).toHaveURL(/\/guide\/private-party-boat-loan$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/can i finance a boat from a private seller/i);
+
+  // Guide template pieces (spec §7)
+  await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toBeVisible();
+  await expect(page.getByText(/insider take/i)).toBeVisible();
+  await expect(page.getByText(/last updated/i).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Related questions" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /start your application/i }).first()).toHaveAttribute("href", "#apply");
+});
+
+test("draft guide pages are clearly marked while awaiting compliance approval", async ({ page }) => {
+  await page.goto("/guide/finance-used-boat");
+  await expect(page.getByRole("note").filter({ hasText: /awaiting vantage compliance approval/i })).toBeVisible();
+});
+
+test("unknown pages return 404 with a way back", async ({ page }) => {
+  const res = await page.goto("/guide/not-a-real-question");
+  expect(res?.status()).toBe(404);
+  await expect(page.getByRole("link", { name: /browse the guide/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /start your application/i })).toBeVisible();
+});
+
+test("newsletter signup confirms double opt-in", async ({ page }) => {
+  await page.goto("/newsletter");
+  await page.getByLabel(/email/i).fill("skipper@example.com");
+  await page.getByRole("button", { name: /sign me up/i }).click();
+  await expect(page.getByText(/check your inbox to confirm/i)).toBeVisible();
+});
