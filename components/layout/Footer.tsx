@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { DISCLOSURE, LEGAL_ENTITY, LEGAL_LINKS, NAV_LINKS, SOCIAL_LINKS } from "@/lib/site";
+import { DISCLOSURE, LEGAL_ENTITY, LEGAL_LINKS, NAV_LINKS } from "@/lib/site";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { NeonLine } from "@/components/ui/NeonLine";
 import { Logo } from "./Logo";
 
 export function Footer() {
-  const socials = SOCIAL_LINKS.filter((s) => s.href);
-
   return (
     <footer className="mt-auto bg-black text-smoke">
       <NeonLine />
@@ -28,17 +27,7 @@ export function Footer() {
               </li>
             </ul>
           </nav>
-          {socials.length > 0 && (
-            <ul className="flex gap-4" aria-label="Social media">
-              {socials.map((s) => (
-                <li key={s.label}>
-                  <a href={s.href} rel="noopener" className="text-white hover:underline">
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+          <SocialLinks className="text-white" />
         </div>
         <div className="space-y-6">
           <p className="text-sm leading-relaxed" data-testid="footer-disclosure">

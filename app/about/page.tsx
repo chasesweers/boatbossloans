@@ -8,12 +8,14 @@ import { personSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 import yachtingUnplugged from "@/public/brand/yachting-unplugged.png";
 
-const page = loadPage("about");
-
-export const metadata = pageMetadata({ title: page.title, description: page.description, path: "/about" });
+export function generateMetadata() {
+  const page = loadPage("about");
+  return pageMetadata({ title: page.title, description: page.description, path: "/about" });
+}
 
 // The authority anchor every author box links to (spec §7 About). Person schema lives here.
 export default function AboutPage() {
+  const page = loadPage("about");
   return (
     <>
       <StaticPageView

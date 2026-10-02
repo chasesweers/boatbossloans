@@ -48,6 +48,8 @@ describe("JSON-LD", () => {
   it("describes the organization and Kim consistently", () => {
     expect(organizationSchema()).toMatchObject({ "@type": "Organization", name: "BOAT BOSS Loans" });
     expect(personSchema()).toMatchObject({ "@type": "Person", name: "Kim Sweers", jobTitle: "The Boat Boss" });
+    expect(personSchema().sameAs).toContain("https://www.instagram.com/theboatboss/");
+    expect(organizationSchema().sameAs).toHaveLength(3);
   });
 
   it("builds FAQPage from question/answer pairs", () => {

@@ -13,6 +13,14 @@ describe("Footer", () => {
     expect(screen.getByTestId("footer-disclosure")).toHaveTextContent(DISCLOSURE);
   });
 
+  it("links to Kim's social profiles from the footer", () => {
+    render(<Footer />);
+    const social = screen.getByRole("list", { name: "Social media" });
+    expect(within(social).getByRole("link", { name: /instagram/i })).toHaveAttribute("href", "https://www.instagram.com/theboatboss/");
+    expect(within(social).getByRole("link", { name: /facebook/i })).toHaveAttribute("href", "https://www.facebook.com/theboatboss/");
+    expect(within(social).getByRole("link", { name: /youtube/i })).toHaveAttribute("href", "https://www.youtube.com/channel/UCWrEEyBk87dAwQOibwJ4Q2g");
+  });
+
   it("links to disclosures, privacy and terms", () => {
     render(<Footer />);
     for (const name of ["Disclosures", "Privacy", "Terms"]) {

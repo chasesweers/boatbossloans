@@ -2,6 +2,7 @@ import Link from "next/link";
 import { aboutKim } from "@/content/home";
 import { KimPhoto } from "@/components/ui/KimPhoto";
 import { NeonLine } from "@/components/ui/NeonLine";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export function AboutKimTeaser() {
   return (
@@ -26,9 +27,12 @@ export function AboutKimTeaser() {
               </li>
             ))}
           </ul>
-          <Link href="/about" className="btn btn-outline mt-8">
-            Kim&apos;s story
-          </Link>
+          <div className="mt-8 flex flex-wrap items-center gap-6">
+            <Link href="/about" className="btn btn-outline">
+              Kim&apos;s story
+            </Link>
+            <SocialLinks className="text-white" label="Follow Kim" />
+          </div>
         </div>
       </div>
     </section>

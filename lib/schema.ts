@@ -2,7 +2,7 @@
 import { AUTHOR_NAME, AUTHOR_TITLE, LEGAL_ENTITY, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "./site";
 
 const abs = (path: string) => `${SITE_URL}${path === "/" ? "" : path}`;
-const sameAs = () => SOCIAL_LINKS.map((s) => s.href).filter((h): h is string => Boolean(h));
+const sameAs = () => SOCIAL_LINKS.map((s) => s.href);
 
 export function organizationSchema() {
   return {

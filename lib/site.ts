@@ -29,10 +29,10 @@ export const LEGAL_LINKS = [
   { href: "/terms", label: "Terms" },
 ] as const;
 
-// Kim to confirm handles. Entries without a URL are not rendered.
-export const SOCIAL_LINKS: { label: "Instagram" | "YouTube" | "Facebook" | "TikTok"; href?: string }[] = [
-  { label: "Instagram", href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM },
-  { label: "YouTube", href: process.env.NEXT_PUBLIC_SOCIAL_YOUTUBE },
-  { label: "Facebook", href: process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK },
-  { label: "TikTok", href: process.env.NEXT_PUBLIC_SOCIAL_TIKTOK },
+// Kim's profiles. Used in the footer, About, Home, and JSON-LD sameAs (spec §9).
+export type SocialNetwork = "Instagram" | "Facebook" | "YouTube";
+export const SOCIAL_LINKS: { label: SocialNetwork; href: string }[] = [
+  { label: "Instagram", href: "https://www.instagram.com/theboatboss/" },
+  { label: "Facebook", href: "https://www.facebook.com/theboatboss/" },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCWrEEyBk87dAwQOibwJ4Q2g" },
 ];
