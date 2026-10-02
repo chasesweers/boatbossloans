@@ -31,6 +31,18 @@ npm run dev            # http://localhost:3000 (drafts visible)
 | `npm run build` | Production build (drafts excluded) |
 | `npm run images` | Rebuild `public/images` and brand marks from `assets/source` |
 
+## Deploy (Vercel demo)
+
+1. vercel.com → Add New → Project → import `chasesweers/boatbossloans`. Framework preset: Next.js (auto). No build settings to change.
+2. Environment variables (Production):
+   - `DEMO_MODE` = `true` (shows the draft guide pages and a "Demo preview" banner)
+   - Leave `NEXT_PUBLIC_SITE_INDEXABLE` unset: the site stays `noindex` and robots.txt blocks crawlers.
+3. Deploy. Every push to `main` redeploys.
+
+Optional now, required at launch: `NEXT_PUBLIC_SITE_URL` (canonical domain; defaults to the Vercel URL), `NEXT_PUBLIC_APPLY_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
+
+At launch: remove `DEMO_MODE` (it also switches itself off once `NEXT_PUBLIC_SITE_INDEXABLE=true`).
+
 ## Content
 
 - Guide pages: `content/guide/<slug>.mdx`. Frontmatter per spec §7. The question wording and group must match `lib/guideCatalog.ts`.
@@ -62,6 +74,7 @@ See [`.env.example`](.env.example).
 - [ ] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
 - [ ] Domain registered under BOAT BOSS Enterprises; `www` redirects to apex in Vercel
 - [ ] Lighthouse 90+ and accessibility check passed
+- [ ] `DEMO_MODE` removed from Vercel
 - [ ] Kim's final sign-off (including allowing AI crawlers in robots.txt)
 
 ## Open items

@@ -6,10 +6,25 @@ export const AUTHOR_NAME = "Kim Sweers";
 export const AUTHOR_TITLE = "The Boat Boss";
 export const LENDER_NAME = "Vantage Recreational Finance";
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+type Env = Record<string, string | undefined>;
+
+// Canonical origin: explicit setting, else Vercel's production domain, else local dev.
+export function resolveSiteUrl(env: Env = process.env): string {
+  if (env.NEXT_PUBLIC_SITE_URL) return env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  if (env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 // Launch gate (spec §2.3, §13): everything is noindex until this is explicitly turned on.
 export const SITE_INDEXABLE = process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+
+// Demo deployments show draft content and a site-wide Demo banner. Switches itself off once the
+// site is indexable, so drafts can never be published by forgetting to unset it at launch.
+export function isDemoMode(env: Env = process.env): boolean {
+  return env.DEMO_MODE === "true" && env.NEXT_PUBLIC_SITE_INDEXABLE !== "true";
+}
 
 export const SITE_DESCRIPTION =
   "Straight answers to boat financing questions from Kim Sweers, The Boat Boss. Learn how boat loans work, then apply with Vantage Recreational Finance.";

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Barlow } from "next/font/google";
 import Script from "next/script";
+import { DemoBanner } from "@/components/layout/DemoBanner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-red focus:px-4 focus:py-2">
           Skip to content
         </a>
+        <DemoBanner />
         <Header />
         <main id="main" className="flex-1">
           {children}

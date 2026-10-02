@@ -6,6 +6,7 @@ import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
 import { GUIDE_GROUPS, catalogIndex, type GuideGroupId } from "./guideCatalog";
+import { isDemoMode } from "./site";
 
 const GUIDE_DIR = path.join(process.cwd(), "content", "guide");
 
@@ -47,10 +48,12 @@ export function parseGuide(source: string, filename: string): GuideDoc {
   return { ...parsed.data, body: content };
 }
 
-// Drafts are visible in dev, and on preview deployments that opt in with SHOW_DRAFTS=true
-// (so Kim and Vantage compliance can review them). Never on the production deployment.
+// Drafts are visible in dev; on preview deployments that opt in with SHOW_DRAFTS=true (so Kim and
+// Vantage compliance can review them); and on a DEMO_MODE deployment. Never once the site is indexable.
 export function draftsAllowed(env: Env = process.env): boolean {
   if (env.NODE_ENV !== "production") return true;
+  if (env.NEXT_PUBLIC_SITE_INDEXABLE === "true") return false;
+  if (isDemoMode(env)) return true;
   return env.SHOW_DRAFTS === "true" && env.VERCEL_ENV !== "production";
 }
 

@@ -30,6 +30,10 @@ for (const path of PAGES) {
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     });
 
+    test("is labeled as a demo", async ({ page }) => {
+      await expect(page.getByRole("note").filter({ hasText: /demo preview/i })).toBeVisible();
+    });
+
     test("shows the required disclosure (spec §10)", async ({ page }) => {
       await expect(page.getByTestId("footer-disclosure")).toContainText("BOAT BOSS is not a lender");
     });

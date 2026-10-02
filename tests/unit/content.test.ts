@@ -74,6 +74,17 @@ describe("draftsAllowed", () => {
   it("never allows drafts on the Vercel production deployment, even if opted in", () => {
     expect(draftsAllowed({ NODE_ENV: "production", SHOW_DRAFTS: "true", VERCEL_ENV: "production" })).toBe(false);
   });
+  it("allows drafts on a production demo deployment while the site is still noindex", () => {
+    expect(draftsAllowed({ NODE_ENV: "production", VERCEL_ENV: "production", DEMO_MODE: "true" })).toBe(true);
+  });
+  it("ignores demo mode once the site is indexable, so drafts can never go live at launch", () => {
+    expect(
+      draftsAllowed({ NODE_ENV: "production", VERCEL_ENV: "production", DEMO_MODE: "true", NEXT_PUBLIC_SITE_INDEXABLE: "true" }),
+    ).toBe(false);
+    expect(
+      draftsAllowed({ NODE_ENV: "production", VERCEL_ENV: "preview", SHOW_DRAFTS: "true", NEXT_PUBLIC_SITE_INDEXABLE: "true" }),
+    ).toBe(false);
+  });
 });
 
 describe("isVisible", () => {
