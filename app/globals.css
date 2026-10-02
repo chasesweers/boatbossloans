@@ -6,6 +6,8 @@
   --color-panel: #161616;
   --color-red: #e3170a;
   --color-red-glow: rgba(255, 30, 20, 0.55);
+  /* Brand red is 4.4:1 on black: fine for large display text, too low for small text. Use this for small red text on dark. */
+  --color-red-light: #ff5a4f;
   --color-white: #ffffff;
   --color-smoke: #b4b4b4;
   --color-ink: #1a1a1a;
