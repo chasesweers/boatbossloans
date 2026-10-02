@@ -20,6 +20,7 @@ export const DISCLOSURE =
 
 export const NAV_LINKS = [
   { href: "/guide", label: "Financing guide" },
+  { href: "/calculator", label: "Calculator" },
   { href: "/about", label: "About Kim" },
 ] as const;
 

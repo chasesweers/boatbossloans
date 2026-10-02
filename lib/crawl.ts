@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 
 export const AI_CRAWLERS = ["GPTBot", "ClaudeBot", "PerplexityBot", "Google-Extended"];
 
-export const STATIC_PATHS = ["/", "/guide", "/about", "/newsletter", "/disclosures", "/privacy", "/terms"];
+export const STATIC_PATHS = ["/", "/guide", "/calculator", "/about", "/newsletter", "/disclosures", "/privacy", "/terms"];
 
 export function buildRobots(indexable: boolean, siteUrl: string): MetadataRoute.Robots {
   // Launch gate (spec §2.3): block everything until Kim signs off.

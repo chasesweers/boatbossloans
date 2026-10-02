@@ -4,19 +4,20 @@ import type { GuideDoc } from "@/lib/content";
 import { AUTHOR_NAME, AUTHOR_TITLE } from "@/lib/site";
 import { KimPhoto } from "@/components/ui/KimPhoto";
 
-export function Breadcrumbs({ items }: { items: { name: string; path?: string }[] }) {
+export function Breadcrumbs({ items, tone = "light" }: { items: { name: string; path?: string }[]; tone?: "light" | "dark" }) {
+  const dark = tone === "dark";
   return (
-    <nav aria-label="Breadcrumb" className="text-sm text-grey">
+    <nav aria-label="Breadcrumb" className={`text-sm ${dark ? "text-smoke" : "text-grey"}`}>
       <ol className="flex flex-wrap items-center gap-2">
         {items.map((item, i) => (
           <li key={item.name} className="flex items-center gap-2">
             {i > 0 && <span aria-hidden="true">›</span>}
             {item.path ? (
-              <Link href={item.path} className="underline-offset-2 hover:text-ink hover:underline">
+              <Link href={item.path} className={`underline-offset-2 hover:underline ${dark ? "hover:text-white" : "hover:text-ink"}`}>
                 {item.name}
               </Link>
             ) : (
-              <span aria-current="page" className="text-ink">
+              <span aria-current="page" className={dark ? "text-white" : "text-ink"}>
                 {item.name}
               </span>
             )}

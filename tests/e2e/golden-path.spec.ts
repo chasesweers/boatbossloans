@@ -42,3 +42,14 @@ test("newsletter signup confirms double opt-in", async ({ page }) => {
   await page.getByRole("button", { name: /sign me up/i }).click();
   await expect(page.getByText(/check your inbox to confirm/i)).toBeVisible();
 });
+
+test("calculator estimates yearly cost live and leads to Apply", async ({ page }) => {
+  await page.goto("/calculator");
+  const total = page.getByTestId("total-per-year");
+  const before = await total.textContent();
+  await page.getByLabel(/^purchase price/i).fill("250000");
+  await expect(total).not.toHaveText(before!);
+  await page.getByLabel(/^purchase price/i).fill("");
+  await expect(page.getByText(/enter a purchase price/i)).toBeVisible();
+  await expect(page.getByRole("link", { name: /apply with vantage/i })).toHaveAttribute("href", "#apply");
+});

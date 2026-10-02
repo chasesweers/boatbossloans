@@ -10,7 +10,9 @@ Repo: [chasesweers/boatbossloans](https://github.com/chasesweers/boatbossloans),
 
 Built: Home, `/guide` + 5 launch guide drafts, `/about`, `/disclosures`, `/privacy`, `/terms`, `/newsletter`, 404, Apply wiring, newsletter signup, analytics events, sitemap, robots, `llms.txt`, JSON-LD, OG images, security headers.
 
-Not yet: `/calculator`, `/media` (Phase 2), `/admin` dashboard (Phase 3).
+Phase 2 so far: `/calculator` (boat cost of ownership, fully client-side, no loan fields by design).
+
+Not yet: `/media` (Phase 2), `/admin` dashboard (Phase 3).
 
 ## Run it
 

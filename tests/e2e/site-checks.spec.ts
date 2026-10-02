@@ -11,6 +11,7 @@ const PAGES = [
   "/guide/private-party-boat-loan",
   "/guide/finance-used-boat",
   "/guide/get-pre-approved",
+  "/calculator",
   "/about",
   "/newsletter",
   "/disclosures",
