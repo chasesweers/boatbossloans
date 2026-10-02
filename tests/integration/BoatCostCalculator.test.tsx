@@ -71,6 +71,6 @@ describe("BoatCostCalculator", () => {
   it("says figures are estimates and offers Apply", () => {
     render(<BoatCostCalculator />);
     expect(screen.getByText(/estimates for planning only/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /apply/i })).toHaveAttribute("href", "#apply");
+    expect(screen.getByRole("link", { name: /apply/i })).toHaveAttribute("href", "/apply");
   });
 });

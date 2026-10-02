@@ -36,7 +36,7 @@ describe("Header", () => {
     expect(within(nav).getByRole("link", { name: "Financing guide" })).toHaveAttribute("href", "/guide");
     expect(within(nav).getByRole("link", { name: "Calculator" })).toHaveAttribute("href", "/calculator");
     expect(within(nav).getByRole("link", { name: "About Kim" })).toHaveAttribute("href", "/about");
-    expect(within(nav).getByRole("link", { name: "Apply" })).toHaveAttribute("href", "#apply");
+    expect(within(nav).getByRole("link", { name: "Apply" })).toHaveAttribute("href", "/apply");
   });
 
   it("opens and closes the mobile menu from the keyboard", async () => {

@@ -4,10 +4,16 @@ test("visitor reads the guide and reaches Apply", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/finance your boat like a boss/i);
 
-  // Without NEXT_PUBLIC_APPLY_URL every Apply button falls back to #apply (spec §5).
+  // Without NEXT_PUBLIC_APPLY_URL every Apply button falls back to /apply (spec §5).
   const heroApply = page.getByRole("link", { name: /start your application/i }).first();
-  await expect(heroApply).toHaveAttribute("href", "#apply");
+  await expect(heroApply).toHaveAttribute("href", "/apply");
   await expect(heroApply).toHaveAttribute("rel", "noopener");
+
+  // The fallback lands on a real page instead of doing nothing.
+  await heroApply.click();
+  await expect(page).toHaveURL(/\/apply$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/application is almost ready/i);
+  await page.goBack();
 
   await page.getByRole("link", { name: /read the guide first/i }).click();
   await expect(page).toHaveURL(/\/guide$/);
@@ -21,7 +27,7 @@ test("visitor reads the guide and reaches Apply", async ({ page }) => {
   await expect(page.getByText(/insider take/i)).toBeVisible();
   await expect(page.getByText(/last updated/i).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Related questions" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /start your application/i }).first()).toHaveAttribute("href", "#apply");
+  await expect(page.getByRole("link", { name: /start your application/i }).first()).toHaveAttribute("href", "/apply");
 });
 
 test("draft guide pages are clearly marked while awaiting compliance approval", async ({ page }) => {
@@ -51,5 +57,5 @@ test("calculator estimates yearly cost live and leads to Apply", async ({ page }
   await expect(total).not.toHaveText(before!);
   await page.getByLabel(/^purchase price/i).fill("");
   await expect(page.getByText(/enter a purchase price/i)).toBeVisible();
-  await expect(page.getByRole("link", { name: /apply with vantage/i })).toHaveAttribute("href", "#apply");
+  await expect(page.getByRole("link", { name: /apply with vantage/i })).toHaveAttribute("href", "/apply");
 });

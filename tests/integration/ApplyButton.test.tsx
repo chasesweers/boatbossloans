@@ -13,7 +13,7 @@ describe("ApplyButton", () => {
   it("links to the apply URL in the same tab with rel=noopener", () => {
     render(<ApplyButton location="header">Apply</ApplyButton>);
     const link = screen.getByRole("link", { name: "Apply" });
-    expect(link).toHaveAttribute("href", "#apply");
+    expect(link).toHaveAttribute("href", "/apply");
     expect(link).toHaveAttribute("rel", "noopener");
     expect(link).not.toHaveAttribute("target");
   });

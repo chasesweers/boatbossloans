@@ -2,7 +2,8 @@
 
 export type ButtonLocation = "header" | "hero" | "inline" | "footer";
 
-export const APPLY_FALLBACK = "#apply";
+// Until Vantage issues the tracked link, Apply buttons land on /apply, which explains what is coming.
+export const APPLY_FALLBACK = "/apply";
 
 interface ApplyEnv {
   url: string | undefined;

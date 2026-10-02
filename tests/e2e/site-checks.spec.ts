@@ -12,6 +12,7 @@ const PAGES = [
   "/guide/finance-used-boat",
   "/guide/get-pre-approved",
   "/calculator",
+  "/apply",
   "/about",
   "/newsletter",
   "/disclosures",

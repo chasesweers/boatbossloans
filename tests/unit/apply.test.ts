@@ -15,9 +15,9 @@ describe("pageSlugFromPath", () => {
 });
 
 describe("buildApplyUrl", () => {
-  it("falls back to #apply when Vantage has not issued the link", () => {
-    expect(buildApplyUrl("/", { url: undefined, utm: "true" })).toBe("#apply");
-    expect(buildApplyUrl("/", { url: "", utm: undefined })).toBe("#apply");
+  it("falls back to /apply when Vantage has not issued the link", () => {
+    expect(buildApplyUrl("/", { url: undefined, utm: "true" })).toBe("/apply");
+    expect(buildApplyUrl("/", { url: "", utm: undefined })).toBe("/apply");
   });
 
   it("passes the tracked link through unchanged when UTM is off", () => {

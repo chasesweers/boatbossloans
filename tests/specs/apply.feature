@@ -4,7 +4,12 @@ Feature: Apply flow
 
   Scenario: Apply link before Vantage issues the tracked URL
     Given NEXT_PUBLIC_APPLY_URL is not set
-    Then every Apply button points to "#apply"
+    Then every Apply button points to "/apply"
+    And /apply explains the secure application is coming soon, with links to the guide and newsletter
+
+  Scenario: /apply once the tracked URL exists
+    Given NEXT_PUBLIC_APPLY_URL is set
+    Then /apply redirects to it (a short link for social bios)
 
   Scenario: Apply link once the tracked URL exists
     Given NEXT_PUBLIC_APPLY_URL is "https://apply.vantage.example/boatboss?id=123"
@@ -27,4 +32,4 @@ Feature: Apply flow
 ## Integration coverage
 - ApplyButton: href, rel, no target, fires apply_click with pathname + location
 ## E2E coverage
-- Home hero Apply button href is "#apply" with no env configured
+- Home hero Apply button href is "/apply" with no env configured
