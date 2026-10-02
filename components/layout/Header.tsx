@@ -18,7 +18,7 @@ export function Header() {
           <ApplyButton location="header" />
         </nav>
         <div className="flex items-center gap-2 md:hidden">
-          <ApplyButton location="header" className="!min-h-11 !px-4" />
+          <ApplyButton location="header" className="!min-h-11 !px-3 sm:!px-4" />
           <MobileMenu />
         </div>
       </div>

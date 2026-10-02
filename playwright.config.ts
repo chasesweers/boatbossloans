@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3100;
+// Set E2E_BASE_URL to run the suite against a deployed site (e.g. the Vercel demo) instead of a local build.
+const REMOTE = process.env.E2E_BASE_URL;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -8,7 +10,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "github" : "html",
-  use: { baseURL: `http://localhost:${PORT}`, trace: "on-first-retry" },
+  use: { baseURL: REMOTE ?? `http://localhost:${PORT}`, trace: "on-first-retry" },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile", use: { ...devices["Pixel 7"] } },
@@ -16,11 +18,13 @@ export default defineConfig({
   // E2E runs against the production build so the compliance gate behaves as it will live.
   // Mirrors the Vercel demo deployment: production build on the production URL with DEMO_MODE on,
   // so the golden paths can exercise draft guide pages before Vantage approval.
-  webServer: {
-    command: `npm run build && npx next start -p ${PORT}`,
-    url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 240_000,
-    env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans.vercel.app" },
-  },
+  webServer: REMOTE
+    ? undefined
+    : {
+        command: `npm run build && npx next start -p ${PORT}`,
+        url: `http://localhost:${PORT}`,
+        reuseExistingServer: !process.env.CI,
+        timeout: 240_000,
+        env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans.vercel.app" },
+      },
 });
