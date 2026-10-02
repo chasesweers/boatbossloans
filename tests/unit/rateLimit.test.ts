@@ -3,7 +3,7 @@ import { createRateLimiter } from "@/lib/rateLimit";
 
 describe("createRateLimiter", () => {
   it("allows up to the limit within the window, then blocks", () => {
-    let now = 0;
+    const now = 0;
     const limiter = createRateLimiter({ limit: 3, windowMs: 1000, now: () => now });
     expect([1, 2, 3].map(() => limiter.check("ip-a"))).toEqual([true, true, true]);
     expect(limiter.check("ip-a")).toBe(false);

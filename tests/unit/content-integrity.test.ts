@@ -4,6 +4,7 @@ import { describe, it, expect } from "vitest";
 import { loadAllGuides } from "@/lib/content";
 import { GUIDE_CATALOG } from "@/lib/guideCatalog";
 import { findComplianceViolations } from "@/lib/compliance";
+import * as home from "@/content/home";
 
 const guides = loadAllGuides();
 const LAUNCH_SLUGS = [
@@ -35,6 +36,10 @@ describe("content/guide", () => {
   it.each(guides.map((g) => [g.slug, g] as const))("%s has no lending ad claims", (_, g) => {
     const text = [g.title, g.summary, g.body].join("\n");
     expect(findComplianceViolations(text)).toEqual([]);
+  });
+
+  it("home page copy has no lending ad claims", () => {
+    expect(findComplianceViolations(JSON.stringify(home))).toEqual([]);
   });
 
   it.each(guides.map((g) => [g.slug, g] as const))("%s body is 600 to 1,200 words", (_, g) => {
