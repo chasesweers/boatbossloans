@@ -4,7 +4,9 @@ Education-first boat financing site for **Kim Sweers, The Boat Boss** (BOAT BOSS
 
 Requirements: `BOATBOSSLOANS SPEC.md` (v1.0, 2026-10-02). Decisions: [`docs/adr/`](docs/adr).
 
-## Status: Phase 1 MVP (pre-launch, `noindex`)
+## Status: Phase 1 proof of concept (pre-launch, `noindex`)
+
+Repo: [chasesweers/boatbossloans](https://github.com/chasesweers/boatbossloans), a personal account for now. Move it to a BOAT BOSS Enterprises account before launch (spec §2.1). The CI workflow is manual-only (Actions tab, Run workflow) during the demo phase; run `npm test` and `npm run test:e2e` locally.
 
 Built: Home, `/guide` + 5 launch guide drafts, `/about`, `/disclosures`, `/privacy`, `/terms`, `/newsletter`, 404, Apply wiring, newsletter signup, analytics events, sitemap, robots, `llms.txt`, JSON-LD, OG images, security headers.
 
