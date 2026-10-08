@@ -38,9 +38,12 @@ export const steps = [
 ];
 
 export const aboutKim = {
-  quote: "I've sat on the other side of the desk. My job now is to make sure you walk in knowing more than the person across from you.",
+  quote: "I've sat on both sides of the finance desk. I want you to walk into your boat purchase knowing exactly what you're signing.",
   credentials: [
-    "Years arranging boat loans across the F&I desk",
+    "In the marine industry since 2001",
+    "Licensed Florida yacht broker",
+    "2025 Darlene Briggs Marine Woman of the Year",
+    "2023 Mercury Marine International Woman of the Year",
     "Host of the BOAT BOSS Podcast and Yachting Unplugged",
     "530,000+ followers across social media",
   ],

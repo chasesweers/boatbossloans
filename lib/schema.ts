@@ -1,5 +1,5 @@
 // JSON-LD builders (spec §9). Kept as plain functions so they are unit-testable.
-import { AUTHOR_NAME, AUTHOR_TITLE, LEGAL_ENTITY, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "./site";
+import { AUTHOR_AWARDS, AUTHOR_CREDENTIAL, AUTHOR_NAME, AUTHOR_TITLE, LEGAL_ENTITY, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "./site";
 
 const abs = (path: string) => `${SITE_URL}${path === "/" ? "" : path}`;
 const sameAs = () => SOCIAL_LINKS.map((s) => s.href);
@@ -27,6 +27,8 @@ export function personSchema() {
     name: AUTHOR_NAME,
     jobTitle: AUTHOR_TITLE,
     url: abs("/about"),
+    award: AUTHOR_AWARDS,
+    hasCredential: { "@type": "EducationalOccupationalCredential", credentialCategory: "license", name: AUTHOR_CREDENTIAL },
     worksFor: { "@id": `${SITE_URL}/#organization` },
     sameAs: sameAs(),
   };

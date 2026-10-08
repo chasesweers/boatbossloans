@@ -5,6 +5,12 @@ export const LEGAL_ENTITY = "BOAT BOSS Enterprises";
 export const AUTHOR_NAME = "Kim Sweers";
 export const AUTHOR_TITLE = "The Boat Boss";
 export const LENDER_NAME = "Vantage Recreational Finance";
+// Expertise signals for Kim's Person JSON-LD (spec §9).
+export const AUTHOR_AWARDS = [
+  "2025 Darlene Briggs Marine Woman of the Year",
+  "2023 Mercury Marine International Woman of the Year",
+];
+export const AUTHOR_CREDENTIAL = "Licensed Florida yacht broker";
 
 type Env = Record<string, string | undefined>;
 

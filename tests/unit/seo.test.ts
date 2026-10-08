@@ -49,6 +49,8 @@ describe("JSON-LD", () => {
     expect(organizationSchema()).toMatchObject({ "@type": "Organization", name: "BOAT BOSS Loans" });
     expect(personSchema()).toMatchObject({ "@type": "Person", name: "Kim Sweers", jobTitle: "The Boat Boss" });
     expect(personSchema().sameAs).toContain("https://www.instagram.com/theboatboss/");
+    expect(personSchema().award).toContain("2025 Darlene Briggs Marine Woman of the Year");
+    expect(personSchema().hasCredential).toMatchObject({ name: "Licensed Florida yacht broker" });
     expect(organizationSchema().sameAs).toHaveLength(3);
   });
 
