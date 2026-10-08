@@ -38,10 +38,9 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
 | | Local | Dev | Prod |
 |---|---|---|---|
 | Branch | working tree | `dev` | `main` |
-| Vercel environment | none (`next dev`) | Preview, vars scoped to branch `dev` | Production |
+| Vercel environment | none (`next dev`) | Preview (domain assigned to branch `dev`) | Production |
 | URL | localhost:3000 | boatbossloans-five-dev.vercel.app | boatbossloans-five.vercel.app (boatbossloans.com at launch) |
-| `DEMO_MODE` | unset | `true` (banner says "Dev preview") | `true` until launch (banner says "Demo preview") |
-| `SHOW_DRAFTS` | n/a (dev server always shows drafts) | `true` | ignored |
+| `DEMO_MODE` (shows drafts + banner) | unset (dev server always shows drafts) | `true`, banner says "Dev preview" | `true` until launch, banner says "Demo preview" |
 | `NEXT_PUBLIC_SITE_INDEXABLE` | unset | never set | `true` at launch only |
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | unset (canonicals point at prod) | `https://boatbossloans.com` at launch |
 | Plausible, Kit | unset | unset (or a Kit test form) | set at launch |
@@ -54,14 +53,12 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
 1. vercel.com → Add New → Project → import `chasesweers/boatbossloans`. Framework preset: Next.js (auto). Production branch: `main`.
 2. Settings → Domains → add `boatbossloans-five-dev.vercel.app`, connect it to the Preview environment, and set Git branch `dev` (without a branch it follows the latest preview of any branch).
 3. Settings → Environment Variables:
-   - Production: `DEMO_MODE` = `true`
-   - Preview (all branches): `SHOW_DRAFTS` = `true`
-   - Preview, branch `dev`: `DEMO_MODE` = `true`
+   - `DEMO_MODE` = `true` for Production and Preview. That's all for now: demo mode also shows the draft guide pages, so `SHOW_DRAFTS` isn't needed.
 4. Settings → Deployment Protection: turn off Vercel Authentication so Kim can open the dev URL without a Vercel login (it protects preview URLs by default). Every non-prod deployment is `noindex` and there are no secrets yet. Revisit once the Phase 3 dashboard exists.
 
 Optional now, required at launch (Production only): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
 
-At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.com` to branch `dev`), set `NEXT_PUBLIC_SITE_INDEXABLE=true` and `NEXT_PUBLIC_SITE_URL` on Production, and remove `DEMO_MODE` from Production (it also switches itself off once the site is indexable).
+At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.com` to branch `dev`), set `NEXT_PUBLIC_SITE_INDEXABLE=true` and `NEXT_PUBLIC_SITE_URL` on Production, and remove Production from `DEMO_MODE`, keeping it on Preview so dev still shows drafts (it also switches itself off once the site is indexable).
 
 ### CI
 
@@ -76,7 +73,7 @@ At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.
 - Never publish rates, APRs, payments, loan terms, down payment amounts, or "best rate"/"guaranteed approval" claims. `npm test` and the E2E suite fail if they appear.
 
 ### Reviewing drafts on a preview URL
-`SHOW_DRAFTS=true` is set for the **Preview** environment (the dev URL and PR previews). Preview builds render drafts with a red Draft banner (and send `X-Robots-Tag: noindex`). Production ignores the flag.
+Dev and PR previews show drafts because `DEMO_MODE` is on for Preview. After launch, keep it on Preview (or set `SHOW_DRAFTS=true` there instead): preview builds render drafts with a red Draft banner (and send `X-Robots-Tag: noindex`). Production ignores `SHOW_DRAFTS`.
 
 ## Photos
 
@@ -98,7 +95,7 @@ See [`.env.example`](.env.example).
 - [ ] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
 - [ ] Domain registered under BOAT BOSS Enterprises; `www` redirects to apex in Vercel
 - [ ] Lighthouse 90+ and accessibility check passed
-- [ ] `DEMO_MODE` removed from Vercel
+- [ ] `DEMO_MODE` removed from Vercel Production (stays on Preview)
 - [ ] Kim's final sign-off (including allowing AI crawlers in robots.txt)
 
 ## Open items
