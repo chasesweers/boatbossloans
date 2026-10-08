@@ -39,7 +39,7 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
 |---|---|---|---|
 | Branch | working tree | `dev` | `main` |
 | Vercel environment | none (`next dev`) | Preview, vars scoped to branch `dev` | Production |
-| URL | localhost:3000 | boatbossloans-dev.vercel.app | boatbossloans.vercel.app (boatbossloans.com at launch) |
+| URL | localhost:3000 | boatbossloans-five-dev.vercel.app | boatbossloans-five.vercel.app (boatbossloans.com at launch) |
 | `DEMO_MODE` | unset | `true` (banner says "Dev preview") | `true` until launch (banner says "Demo preview") |
 | `SHOW_DRAFTS` | n/a (dev server always shows drafts) | `true` | ignored |
 | `NEXT_PUBLIC_SITE_INDEXABLE` | unset | never set | `true` at launch only |
@@ -52,7 +52,7 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
 ### Vercel setup (one time)
 
 1. vercel.com → Add New → Project → import `chasesweers/boatbossloans`. Framework preset: Next.js (auto). Production branch: `main`.
-2. Settings → Domains → add `boatbossloans-dev.vercel.app` and assign it to Git branch `dev`.
+2. Settings → Domains → add `boatbossloans-five-dev.vercel.app`, connect it to the Preview environment, and set Git branch `dev` (without a branch it follows the latest preview of any branch).
 3. Settings → Environment Variables:
    - Production: `DEMO_MODE` = `true`
    - Preview (all branches): `SHOW_DRAFTS` = `true`

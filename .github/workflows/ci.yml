@@ -1,7 +1,7 @@
 name: CI
 
 # Day-to-day pushes to `dev` don't run CI; promoting dev -> main (a PR into main) does.
-# Run manually with e2e_base_url to test a deployed site, e.g. https://boatbossloans-dev.vercel.app
+# Run manually with e2e_base_url to test a deployed site, e.g. https://boatbossloans-five-dev.vercel.app
 on:
   pull_request:
     branches: [main]

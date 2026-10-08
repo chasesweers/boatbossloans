@@ -26,6 +26,6 @@ export default defineConfig({
         url: `http://localhost:${PORT}`,
         reuseExistingServer: !process.env.CI,
         timeout: 240_000,
-        env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans.vercel.app" },
+        env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans-five.vercel.app" },
       },
 });
