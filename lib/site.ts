@@ -32,6 +32,11 @@ export function isDemoMode(env: Env = process.env): boolean {
   return env.DEMO_MODE === "true" && env.NEXT_PUBLIC_SITE_INDEXABLE !== "true";
 }
 
+// Banner label so Kim can tell the dev deployment (Vercel Preview, `dev` branch) from prod.
+export function demoBannerLabel(env: Env = process.env): string {
+  return env.VERCEL_ENV === "preview" ? "Dev preview" : "Demo preview";
+}
+
 export const SITE_DESCRIPTION =
   "Straight answers to boat financing questions from Kim Sweers, The Boat Boss. Learn how boat loans work, then apply with Vantage Recreational Finance.";
 

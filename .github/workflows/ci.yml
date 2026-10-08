@@ -1,10 +1,16 @@
 name: CI
 
-# Manual only during the proof-of-concept phase. To run on every push/PR again, replace with:
-#   push: { branches: [main] }
-#   pull_request: { branches: [main] }
+# Day-to-day pushes to `dev` don't run CI; promoting dev -> main (a PR into main) does.
+# Run manually with e2e_base_url to test a deployed site, e.g. https://boatbossloans-five-dev.vercel.app
 on:
+  pull_request:
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      e2e_base_url:
+        description: "Run E2E against this deployed URL instead of a local build (optional)"
+        required: false
+        default: ""
 
 jobs:
   test:
@@ -49,6 +55,8 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+        env:
+          E2E_BASE_URL: ${{ inputs.e2e_base_url }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

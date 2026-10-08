@@ -2,7 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3100;
 // Set E2E_BASE_URL to run the suite against a deployed site (e.g. the Vercel demo) instead of a local build.
-const REMOTE = process.env.E2E_BASE_URL;
+// Empty counts as unset (CI passes an empty string when the workflow input is left blank).
+const REMOTE = process.env.E2E_BASE_URL || undefined;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -25,6 +26,6 @@ export default defineConfig({
         url: `http://localhost:${PORT}`,
         reuseExistingServer: !process.env.CI,
         timeout: 240_000,
-        env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans.vercel.app" },
+        env: { DEMO_MODE: "true", VERCEL_ENV: "production", VERCEL_PROJECT_PRODUCTION_URL: "boatbossloans-five.vercel.app" },
       },
 });
