@@ -2,7 +2,7 @@ import { steps } from "@/content/home";
 
 export function HowItWorks() {
   return (
-    <section aria-labelledby="how-heading" className="bg-black py-16 md:py-24">
+    <section aria-labelledby="how-heading" className="bg-black pb-10 pt-16 md:pb-14 md:pt-24">
       <div className="container-site">
         <h2 id="how-heading" className="text-[clamp(2.25rem,5vw,3.75rem)]">
           How it works

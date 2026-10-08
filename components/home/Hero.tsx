@@ -15,10 +15,10 @@ export function Hero() {
         fill
         sizes="100vw"
         placeholder="blur"
-        className="-z-10 object-cover object-center opacity-80"
+        className="-z-10 object-cover object-center"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/70 to-black/10 md:bg-gradient-to-r md:from-black md:via-black/75 md:to-transparent" />
-      <div className="container-site relative flex min-h-[calc(100svh-5rem)] items-end py-12 md:items-center md:py-24">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent" />
+      <div className="container-site relative flex min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-5rem)] items-end py-12 md:items-center md:py-24">
         <NeonLine orientation="vertical" className="absolute bottom-24 left-0 top-24 hidden md:block" />
         <div className="max-w-2xl md:pl-8">
           <h1 className="text-[clamp(3rem,9vw,6.5rem)] text-white">{hero.headline}</h1>

@@ -2,7 +2,7 @@ import { categories, financeIntro } from "@/content/home";
 
 export function FinanceCategories() {
   return (
-    <section aria-labelledby="finance-heading" className="bg-panel py-16 md:py-24">
+    <section aria-labelledby="finance-heading" className="bg-panel pb-10 pt-16 md:pb-14 md:pt-24">
       <div className="container-site">
         <h2 id="finance-heading" className="text-[clamp(2.25rem,5vw,3.75rem)]">
           {financeIntro.headline}
