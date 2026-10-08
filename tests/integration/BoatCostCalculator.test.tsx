@@ -3,6 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BoatCostCalculator } from "@/components/calculator/BoatCostCalculator";
 import { DEFAULT_INPUTS, STORAGE_TYPES } from "@/lib/calculator";
+import { VANTAGE_APPLY_URL } from "@/lib/apply";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/calculator" }));
 
@@ -71,6 +72,6 @@ describe("BoatCostCalculator", () => {
   it("says figures are estimates and offers Apply", () => {
     render(<BoatCostCalculator />);
     expect(screen.getByText(/estimates for planning only/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /apply/i })).toHaveAttribute("href", "/apply");
+    expect(screen.getByRole("link", { name: /apply/i })).toHaveAttribute("href", VANTAGE_APPLY_URL);
   });
 });

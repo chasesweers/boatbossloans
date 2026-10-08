@@ -2,7 +2,10 @@
 
 export type ButtonLocation = "header" | "hero" | "inline" | "footer";
 
-// Until Vantage issues the tracked link, Apply buttons land on /apply, which explains what is coming.
+// Kim's tracked application link, issued by Vantage. NEXT_PUBLIC_APPLY_URL overrides it.
+export const VANTAGE_APPLY_URL = "https://vantagerecreationalfinance.com/Home/Apply/780";
+
+// Returned only when no link is configured at all.
 export const APPLY_FALLBACK = "/apply";
 
 interface ApplyEnv {
@@ -12,7 +15,7 @@ interface ApplyEnv {
 
 // NEXT_PUBLIC_* values are inlined at build time, so read them as literal property accesses.
 const defaultEnv = (): ApplyEnv => ({
-  url: process.env.NEXT_PUBLIC_APPLY_URL,
+  url: process.env.NEXT_PUBLIC_APPLY_URL || VANTAGE_APPLY_URL,
   utm: process.env.NEXT_PUBLIC_APPLY_UTM,
 });
 

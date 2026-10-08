@@ -2,6 +2,7 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ApplyButton } from "@/components/ui/ApplyButton";
+import { VANTAGE_APPLY_URL } from "@/lib/apply";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/about" }));
 
@@ -13,7 +14,7 @@ describe("ApplyButton", () => {
   it("links to the apply URL in the same tab with rel=noopener", () => {
     render(<ApplyButton location="header">Apply</ApplyButton>);
     const link = screen.getByRole("link", { name: "Apply" });
-    expect(link).toHaveAttribute("href", "/apply");
+    expect(link).toHaveAttribute("href", VANTAGE_APPLY_URL);
     expect(link).toHaveAttribute("rel", "noopener");
     expect(link).not.toHaveAttribute("target");
   });

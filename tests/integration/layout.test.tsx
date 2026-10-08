@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { DISCLOSURE } from "@/lib/site";
+import { VANTAGE_APPLY_URL } from "@/lib/apply";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
@@ -36,7 +37,7 @@ describe("Header", () => {
     expect(within(nav).getByRole("link", { name: "Financing guide" })).toHaveAttribute("href", "/guide");
     expect(within(nav).getByRole("link", { name: "Calculator" })).toHaveAttribute("href", "/calculator");
     expect(within(nav).getByRole("link", { name: "About Kim" })).toHaveAttribute("href", "/about");
-    expect(within(nav).getByRole("link", { name: "Apply" })).toHaveAttribute("href", "/apply");
+    expect(within(nav).getByRole("link", { name: "Apply" })).toHaveAttribute("href", VANTAGE_APPLY_URL);
   });
 
   it("opens and closes the mobile menu from the keyboard", async () => {

@@ -39,7 +39,7 @@ npm run dev            # http://localhost:3000 (drafts visible)
    - Leave `NEXT_PUBLIC_SITE_INDEXABLE` unset: the site stays `noindex` and robots.txt blocks crawlers.
 3. Deploy. Every push to `main` redeploys.
 
-Optional now, required at launch: `NEXT_PUBLIC_SITE_URL` (canonical domain; defaults to the Vercel URL), `NEXT_PUBLIC_APPLY_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
+Optional now, required at launch: `NEXT_PUBLIC_SITE_URL` (canonical domain; defaults to the Vercel URL), `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
 
 At launch: remove `DEMO_MODE` (it also switches itself off once `NEXT_PUBLIC_SITE_INDEXABLE=true`).
 
@@ -69,7 +69,7 @@ See [`.env.example`](.env.example).
 ## Launch gates (spec §13). All required before setting `NEXT_PUBLIC_SITE_INDEXABLE=true`
 
 - [ ] Signed agreement with Vantage
-- [ ] Vantage tracked application link received and set as `NEXT_PUBLIC_APPLY_URL`
+- [x] Vantage tracked application link received (built into `lib/apply.ts`; `NEXT_PUBLIC_APPLY_URL` overrides)
 - [ ] Vantage compliance approval of site and launch content (`compliance_approved: true` on approved pages)
 - [ ] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
 - [ ] Domain registered under BOAT BOSS Enterprises; `www` redirects to apex in Vercel
