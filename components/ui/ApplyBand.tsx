@@ -4,7 +4,7 @@ import { ApplyButton } from "./ApplyButton";
 
 // Apply CTA band (spec §7 Home section 7, reused at the end of guide pages).
 export function ApplyBand({
-  headline = "Ready when you are",
+  headline = "Let's get you on the water",
   body = "One short application. A Vantage lending specialist reviews your options across multiple marine lenders and explains them in plain language.",
 }: {
   headline?: string;

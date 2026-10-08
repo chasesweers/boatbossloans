@@ -1,6 +1,7 @@
 // Home page copy (spec §7 Home). Kept as data so the compliance check can scan it
 // (tests/unit/content-integrity.test.ts) and so Kim's edits are one-file changes.
-// Hero and category copy is taken verbatim from the approved preview.
+// Hero copy is taken verbatim from the approved preview. Category notes and step lines are
+// DRAFT personality edits (Oct 2026 feedback) pending Kim's approval.
 
 export const hero = {
   headline: "Finance your boat like a Boss",
@@ -10,16 +11,16 @@ export const hero = {
 
 export const financeIntro = {
   headline: "New or used. Dealer or private party.",
-  body: "One short application. A Vantage lending specialist reviews it, explains your options in plain language, and handles the paperwork through closing.",
+  body: "One short application. A Vantage lending specialist reviews it, explains your options in plain English, and handles the paperwork through closing. You just pick the boat.",
 };
 
 // Only categories Vantage has confirmed (spec §7: PWC and ATV are unconfirmed).
 export const categories = [
   { name: "Boats", note: "Center consoles to yachts" },
-  { name: "Engines and repowers", note: "Outboards and upgrades" },
-  { name: "Trailers", note: "With the boat or on their own" },
-  { name: "Docks", note: "Where your boat lives" },
-  { name: "RVs", note: "For life on land, too" },
+  { name: "Engines and repowers", note: "New power for the boat you already love" },
+  { name: "Trailers", note: "Because the boat has to get to the water" },
+  { name: "Docks", note: "Every boat needs a home" },
+  { name: "RVs", note: "For the days you are stuck on land" },
 ];
 
 export const steps = [
@@ -29,7 +30,7 @@ export const steps = [
   },
   {
     title: "Review your options",
-    body: "A Vantage lending specialist shops your application across multiple marine lenders and walks you through what is available in plain language.",
+    body: "A Vantage lending specialist shops your application across multiple marine lenders and walks you through what is available in plain language. No jargon, no guesswork.",
   },
   {
     title: "Close and launch",
