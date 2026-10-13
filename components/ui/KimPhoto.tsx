@@ -1,17 +1,33 @@
 import Image from "next/image";
-import studioWall from "@/public/images/studio-wall.jpg";
+import cover from "@/public/images/kim-boat-boss-cover.jpg";
+import headshot from "@/public/images/kim-headshot.jpg";
 
-// Placeholder until Kim supplies kim.jpg (spec §6). Swap the import and alt text when it arrives.
-export function KimPhoto({ className = "", sizes = "(min-width: 768px) 40vw, 100vw" }: { className?: string; sizes?: string }) {
+const photos = {
+  cover: {
+    src: cover,
+    alt: "Kim Sweers, The Boat Boss, standing at the helm of a center-console boat on open water under a BOAT BOSS headline",
+    position: "object-top",
+  },
+  headshot: {
+    src: headshot,
+    alt: "Studio portrait of Kim Sweers, The Boat Boss",
+    position: "object-[50%_30%]",
+  },
+};
+
+export function KimPhoto({
+  photo = "cover",
+  className = "",
+  sizes = "(min-width: 768px) 40vw, 100vw",
+}: {
+  photo?: keyof typeof photos;
+  className?: string;
+  sizes?: string;
+}) {
+  const { src, alt, position } = photos[photo];
   return (
     <div className={`relative overflow-hidden bg-black ${className}`}>
-      <Image
-        src={studioWall}
-        alt="The BOAT BOSS studio wall with the Yachting Unplugged sign and red neon lights"
-        fill
-        sizes={sizes}
-        className="object-cover"
-      />
+      <Image src={src} alt={alt} fill sizes={sizes} placeholder="blur" className={`object-cover ${position}`} />
     </div>
   );
 }

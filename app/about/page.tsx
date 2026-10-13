@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { StaticPageView } from "@/components/pages/StaticPageView";
 import { KimPhoto } from "@/components/ui/KimPhoto";
+import { KimGallery } from "@/components/about/KimGallery";
 import { ApplyBand } from "@/components/ui/ApplyBand";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { loadPage } from "@/lib/pages";
@@ -21,14 +22,15 @@ export default function AboutPage() {
       <StaticPageView
         page={page}
         aside={
-          <div className="mt-8 grid gap-4 sm:grid-cols-[3fr_2fr] sm:items-end">
-            <KimPhoto className="aspect-[16/10] w-full" sizes="(min-width: 768px) 480px, 100vw" />
+          <div className="mt-8 grid gap-4 sm:grid-cols-[2fr_3fr] sm:items-end">
+            <KimPhoto photo="headshot" className="aspect-[4/5] w-full" sizes="(min-width: 768px) 300px, 100vw" />
             <div className="bg-black p-4">
               <Image src={yachtingUnplugged} alt="Yachting Unplugged" className="h-auto w-full" sizes="300px" />
             </div>
           </div>
         }
       />
+      <KimGallery />
       <ApplyBand headline="Ready to shop like a Boss?" />
       <JsonLd data={personSchema()} />
     </>

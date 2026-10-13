@@ -57,7 +57,7 @@ export function makeGuideLink(visibleSlugs: Set<string>) {
 export function AuthorBox() {
   return (
     <section aria-label="About the author" className="flex flex-col gap-5 border-y border-ink/15 py-8 sm:flex-row sm:items-center">
-      <KimPhoto className="h-24 w-24 shrink-0 rounded-full" sizes="96px" />
+      <KimPhoto photo="headshot" className="h-24 w-24 shrink-0 rounded-full" sizes="96px" />
       <div>
         <p className="font-display text-2xl uppercase text-ink">
           {AUTHOR_NAME}, {AUTHOR_TITLE}
