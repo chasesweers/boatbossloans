@@ -9,6 +9,7 @@ export const LENDER_NAME = "Vantage Recreational Finance";
 export const AUTHOR_AWARDS = [
   "2025 Darlene Briggs Marine Woman of the Year",
   "2023 Mercury Marine International Woman of the Year",
+  "Junior Achievement of South Florida Laureate",
 ];
 export const AUTHOR_CREDENTIAL = "Licensed Florida yacht broker";
 
