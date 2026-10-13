@@ -9,7 +9,7 @@ export function AboutKimTeaser() {
     <section aria-labelledby="kim-heading" className="bg-panel py-16 md:py-24">
       <div className="container-site grid items-center gap-10 md:grid-cols-[2fr_3fr]">
         <div className="relative">
-          <KimPhoto className="aspect-[4/5] w-full" />
+          <KimPhoto className="aspect-[18/25] w-full" />
           <NeonLine orientation="vertical" className="absolute -right-4 bottom-8 top-8 hidden md:block" />
         </div>
         <div>
