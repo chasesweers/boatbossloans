@@ -69,8 +69,7 @@ At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.
 ## Content
 
 - Guide pages: `content/guide/<slug>.mdx`. Frontmatter per spec §7. The question wording and group must match `lib/guideCatalog.ts`.
-- **A page only goes live when `published: true` and `compliance_approved: true`.** Set `compliance_approved` only after Vantage compliance signs off on that exact text.
-- Kim's insider takes in the drafts are placeholders; each has a comment to replace it with her own story.
+- **A page only goes live when `published: true` and `compliance_approved: true`.** Set `compliance_approved` only after Kim approves that exact text. She has final say on what goes live.
 - Home copy: `content/home.ts`. About and legal pages: `content/pages/*.mdx` (placeholder text, marked "Pending review").
 - Never publish rates, APRs, payments, loan terms, down payment amounts, or "best rate"/"guaranteed approval" claims. `npm test` and the E2E suite fail if they appear.
 

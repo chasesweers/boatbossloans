@@ -49,7 +49,7 @@ export function parseGuide(source: string, filename: string): GuideDoc {
 }
 
 // Drafts are visible in dev; on preview deployments that opt in with SHOW_DRAFTS=true (so Kim and
-// Vantage compliance can review them); and on a DEMO_MODE deployment. Never once the site is indexable.
+// others can review them); and on a DEMO_MODE deployment. Never once the site is indexable.
 export function draftsAllowed(env: Env = process.env): boolean {
   if (env.NODE_ENV !== "production") return true;
   if (env.NEXT_PUBLIC_SITE_INDEXABLE === "true") return false;
