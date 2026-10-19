@@ -13,6 +13,7 @@
     "test:e2e": "playwright test",
     "images": "node scripts/prepare-images.mjs",
     "indexnow": "node scripts/indexnow.mjs",
+    "pr:overlap": "node scripts/pr-overlap.mjs",
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
