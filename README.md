@@ -58,6 +58,8 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
 
 Optional now, required at launch (Production only): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
 
+**IndexNow** (fast Bing and Yandex indexing), Production only: set `INDEXNOW_KEY` to a random 8–128 character string of letters, digits or `-` (e.g. `node -e "console.log(crypto.randomUUID())"`). The site then serves it at `/<key>.txt`. Run `INDEXNOW_KEY=<key> npm run indexnow` after launch and again after publishing or updating a guide: it reads the live `sitemap.xml` and submits every URL to `api.indexnow.org`. Google doesn't use IndexNow; it reads the sitemap.
+
 At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.com` to branch `dev`), set `NEXT_PUBLIC_SITE_INDEXABLE=true` and `NEXT_PUBLIC_SITE_URL` on Production, and remove Production from `DEMO_MODE`, keeping it on Preview so dev still shows drafts (it also switches itself off once the site is indexable).
 
 ### CI
