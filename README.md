@@ -56,7 +56,7 @@ Two Vercel deployments from one project (see [ADR-007](docs/adr/007-dev-and-prod
    - `DEMO_MODE` = `true` for Production and Preview. That's all for now: demo mode also shows the draft guide pages, so `SHOW_DRAFTS` isn't needed.
 4. Settings → Deployment Protection: turn off Vercel Authentication so Kim can open the dev URL without a Vercel login (it protects preview URLs by default). Every non-prod deployment is `noindex` and there are no secrets yet. Revisit once the Phase 3 dashboard exists.
 
-Optional now, required at launch (Production only): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing.
+Optional now, required at launch (Production only): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `KIT_API_KEY` + `KIT_FORM_ID`. Without Kit keys the newsletter form shows its success message but sends nothing, except on the launched site (Production with `NEXT_PUBLIC_SITE_INDEXABLE=true`), where every signup fails with an error message and logs `[newsletter] KIT_API_KEY and KIT_FORM_ID are not set` so a missing key can't silently drop subscribers.
 
 **IndexNow** (fast Bing and Yandex indexing), Production only: set `INDEXNOW_KEY` to a random 8–128 character string of letters, digits or `-` (e.g. `node -e "console.log(crypto.randomUUID())"`). The site then serves it at `/<key>.txt`. Run `INDEXNOW_KEY=<key> npm run indexnow` after launch and again after publishing or updating a guide: it reads the live `sitemap.xml` and submits every URL to `api.indexnow.org`. Google doesn't use IndexNow; it reads the sitemap.
 
