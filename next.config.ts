@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { INDEXNOW_KEY_PATTERN } from "./lib/indexnow";
+import { buildRedirects } from "./lib/redirects";
 
 // Defense-in-depth headers (playbook §7.6). Third parties allowed: Plausible analytics and
 // YouTube's privacy-enhanced player behind the click-to-load facade.
@@ -29,6 +30,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    return buildRedirects();
+  },
   async rewrites() {
     // IndexNow key file at the site root. Runs after real files, so robots.txt and llms.txt win.
     return [{ source: `/:file(${INDEXNOW_KEY_PATTERN}\\.txt)`, destination: "/api/indexnow/:file" }];
