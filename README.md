@@ -71,7 +71,7 @@ At launch: add `boatbossloans.com` to Production (optionally `dev.boatbossloans.
 - Guide pages: `content/guide/<slug>.mdx`. Frontmatter per spec §7. The question wording and group must match `lib/guideCatalog.ts`.
 - **A page only goes live when `published: true` and `compliance_approved: true`.** Set `compliance_approved` only after Vantage compliance signs off on that exact text.
 - Kim's insider takes in the drafts are placeholders; each has a comment to replace it with her own story.
-- Home copy: `content/home.ts`. About and legal pages: `content/pages/*.mdx` (placeholder text, marked "Pending review").
+- Home copy: `content/home.ts`. About and legal pages: `content/pages/*.mdx`. An indexable build fails while any of them is `draft: true` or shows a `<PendingReview>` note.
 - Never publish rates, APRs, payments, loan terms, down payment amounts, or "best rate"/"guaranteed approval" claims. `npm test` and the E2E suite fail if they appear.
 
 ### Reviewing drafts on a preview URL
@@ -91,10 +91,10 @@ See [`.env.example`](.env.example).
 
 ## Launch gates (spec §13). All required before setting `NEXT_PUBLIC_SITE_INDEXABLE=true`
 
-- [ ] Signed agreement with Vantage
+- [x] Signed agreement with Vantage
 - [x] Vantage tracked application link received (built into `lib/apply.ts`; `NEXT_PUBLIC_APPLY_URL` overrides)
-- [ ] Vantage compliance approval of site and launch content (`compliance_approved: true` on approved pages)
-- [ ] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
+- [x] Kim approved the site and launch content (`compliance_approved: true` on approved pages). Kim has final say; written Vantage approval is not required
+- [x] Disclosures, privacy and terms text final (remove "Pending review" notes, set `draft: false`)
 - [ ] Domain registered under BOAT BOSS Enterprises; `www` redirects to apex in Vercel
 - [ ] Lighthouse 90+ and accessibility check passed
 - [ ] `DEMO_MODE` removed from Vercel Production (stays on Preview)

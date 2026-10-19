@@ -41,7 +41,7 @@ export function demoBannerLabel(env: Env = process.env): string {
 export const SITE_DESCRIPTION =
   "Straight answers to boat financing questions from Kim Sweers, The Boat Boss. Learn how boat loans work, then apply with Vantage Recreational Finance.";
 
-// Spec §10. Final wording comes from Vantage compliance and Kim's attorney.
+// Spec §10. Final wording approved by Kim.
 export const DISCLOSURE =
   "BOAT BOSS Loans is a brand of BOAT BOSS Enterprises. BOAT BOSS is not a lender and does not make credit decisions. Financing is arranged through Vantage Recreational Finance, Inc. All loans are subject to credit approval. BOAT BOSS Enterprises receives compensation from Vantage Recreational Finance for referred loans. Content on this site is general education, not financial, legal, or tax advice.";
 
