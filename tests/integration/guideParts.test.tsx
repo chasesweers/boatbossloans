@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Breadcrumbs, makeGuideLink, formatUpdated } from "@/components/guide/GuideParts";
+import { Breadcrumbs, DraftBanner, makeGuideLink, formatUpdated } from "@/components/guide/GuideParts";
 import { FaqAccordion } from "@/components/home/FaqAccordion";
 
 describe("guide links inside MDX", () => {
@@ -15,6 +15,13 @@ describe("guide links inside MDX", () => {
     render(<GuideLink href="/guide/marine-survey-for-boat-loan">survey</GuideLink>);
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
     expect(screen.getByText("survey")).toBeInTheDocument();
+  });
+});
+
+describe("DraftBanner", () => {
+  it("tells reviewers the page is waiting on Kim's approval", () => {
+    render(<DraftBanner />);
+    expect(screen.getByRole("note")).toHaveTextContent(/awaiting kim’s approval/i);
   });
 });
 
