@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { newsletterSchema } from "@/lib/newsletter/schema";
 import { createNewsletterHandler } from "@/lib/newsletter/handler";
 import { createRateLimiter } from "@/lib/rateLimit";
-import type { NewsletterProvider } from "@/lib/newsletter/provider";
+import { getNewsletterProvider, type NewsletterProvider } from "@/lib/newsletter/provider";
 
 const req = (body: unknown, ip = "1.2.3.4") =>
   new NextRequest("http://localhost/api/newsletter", {
@@ -62,5 +62,34 @@ describe("POST /api/newsletter", () => {
     const res = await handler(req({ email: "skipper@example.com" }));
     expect(res.status).toBe(502);
     expect(await res.json()).toEqual({ error: expect.stringMatching(/try again/i) });
+  });
+});
+
+describe("getNewsletterProvider", () => {
+  const launch = { VERCEL_ENV: "production", NEXT_PUBLIC_SITE_INDEXABLE: "true" };
+
+  it("uses Kit when both keys are set", () => {
+    expect(getNewsletterProvider({ ...launch, KIT_API_KEY: "k", KIT_FORM_ID: "1" }).name).toBe("kit");
+  });
+
+  it("falls back to the console provider locally, on Preview and on the pre-launch demo", () => {
+    expect(getNewsletterProvider({}).name).toBe("console");
+    expect(getNewsletterProvider({ VERCEL_ENV: "preview", NEXT_PUBLIC_SITE_INDEXABLE: "true" }).name).toBe("console");
+    expect(getNewsletterProvider({ VERCEL_ENV: "production", DEMO_MODE: "true" }).name).toBe("console");
+  });
+
+  it("fails signups visibly on the launched site when Kit keys are missing", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const provider = getNewsletterProvider(launch);
+    expect(provider.name).toBe("unconfigured");
+    expect(getNewsletterProvider({ ...launch, KIT_API_KEY: "k" }).name).toBe("unconfigured");
+    expect(error).toHaveBeenCalledWith(expect.stringMatching(/KIT_API_KEY and KIT_FORM_ID are not set/));
+
+    const launched = createNewsletterHandler({ provider, limiter: createRateLimiter({ limit: 5, windowMs: 600_000 }) });
+    const res = await launched(req({ email: "skipper@example.com" }));
+    expect(res.status).toBe(502);
+    expect(await res.json()).toEqual({ error: expect.stringMatching(/try again/i) });
+    expect(error).toHaveBeenCalledWith("[newsletter] provider error", expect.stringMatching(/KIT_API_KEY/));
+    error.mockRestore();
   });
 });

@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import { PHASE_PRODUCTION_BUILD } from "next/constants";
+import { assertStaticPagesLaunchReady } from "./lib/pages";
+import { INDEXNOW_KEY_PATTERN } from "./lib/indexnow";
+import { buildRedirects } from "./lib/redirects";
 
 // Defense-in-depth headers (playbook §7.6). Third parties allowed: Plausible analytics and
 // YouTube's privacy-enhanced player behind the click-to-load facade.
@@ -28,6 +32,13 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    return buildRedirects();
+  },
+  async rewrites() {
+    // IndexNow key file at the site root. Runs after real files, so robots.txt and llms.txt win.
+    return [{ source: `/:file(${INDEXNOW_KEY_PATTERN}\\.txt)`, destination: "/api/indexnow/:file" }];
+  },
   async headers() {
     if (process.env.NODE_ENV === "development") return [];
     return [
@@ -40,4 +51,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default function config(phase: string): NextConfig {
+  // Fail closed: an indexable build can never ship draft or "Pending review" legal pages.
+  if (phase === PHASE_PRODUCTION_BUILD) assertStaticPagesLaunchReady();
+  return nextConfig;
+}

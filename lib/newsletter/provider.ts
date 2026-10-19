@@ -45,7 +45,28 @@ export const consoleProvider: NewsletterProvider = {
   },
 };
 
-export function getNewsletterProvider(env: Record<string, string | undefined> = process.env): NewsletterProvider {
+const MISSING_KIT = "KIT_API_KEY and KIT_FORM_ID are not set on Production; newsletter signups are failing";
+
+// Launched site without Kit keys: fail every signup so the form shows an error instead of a
+// success message for a subscriber nobody stored. The handler turns the throw into a 502.
+export const unconfiguredProvider: NewsletterProvider = {
+  name: "unconfigured",
+  async subscribe() {
+    console.error(`[newsletter] ${MISSING_KIT}`);
+    throw new Error(MISSING_KIT);
+  },
+};
+
+type Env = Record<string, string | undefined>;
+
+const isProductionLaunch = (env: Env) => env.VERCEL_ENV === "production" && env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+
+export function getNewsletterProvider(env: Env = process.env): NewsletterProvider {
   if (env.KIT_API_KEY && env.KIT_FORM_ID) return kitProvider(env.KIT_API_KEY, env.KIT_FORM_ID);
+  if (isProductionLaunch(env)) {
+    console.error(`[newsletter] ${MISSING_KIT}`);
+    return unconfiguredProvider;
+  }
+  // Local, CI, Preview and the pre-launch demo.
   return consoleProvider;
 }
