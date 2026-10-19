@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import { PHASE_PRODUCTION_BUILD } from "next/constants";
+import { assertStaticPagesLaunchReady } from "./lib/pages";
 import { INDEXNOW_KEY_PATTERN } from "./lib/indexnow";
 import { buildRedirects } from "./lib/redirects";
 
@@ -49,4 +51,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default function config(phase: string): NextConfig {
+  // Fail closed: an indexable build can never ship draft or "Pending review" legal pages.
+  if (phase === PHASE_PRODUCTION_BUILD) assertStaticPagesLaunchReady();
+  return nextConfig;
+}
