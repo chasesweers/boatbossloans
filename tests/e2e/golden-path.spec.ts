@@ -25,9 +25,10 @@ test("visitor reads the guide and reaches Apply", async ({ page }) => {
   await expect(page.getByRole("link", { name: /start your application/i }).first()).toHaveAttribute("href", VANTAGE_APPLY_URL);
 });
 
-test("draft guide pages are clearly marked while awaiting compliance approval", async ({ page }) => {
+test("approved launch guides show no draft banner", async ({ page }) => {
   await page.goto("/guide/finance-used-boat");
-  await expect(page.getByRole("note").filter({ hasText: /awaiting vantage compliance approval/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("note").filter({ hasText: /^draft:/i })).toHaveCount(0);
 });
 
 test("unknown pages return 404 with a way back", async ({ page }) => {

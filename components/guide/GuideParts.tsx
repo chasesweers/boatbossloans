@@ -102,7 +102,7 @@ export function RelatedQuestions({ guides }: { guides: GuideDoc[] }) {
 export function DraftBanner() {
   return (
     <div role="note" className="bg-red px-4 py-2 text-center text-sm font-semibold text-white">
-      Draft: awaiting Vantage compliance approval. This page will not appear on the live site until approved.
+      Draft: awaiting Kim&rsquo;s approval. This page will not appear on the live site until approved.
     </div>
   );
 }
