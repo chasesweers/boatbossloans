@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { buildRedirects } from "./lib/redirects";
 
 // Defense-in-depth headers (playbook §7.6). Third parties allowed: Plausible analytics and
 // YouTube's privacy-enhanced player behind the click-to-load facade.
@@ -28,6 +29,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    return buildRedirects();
+  },
   async headers() {
     if (process.env.NODE_ENV === "development") return [];
     return [
