@@ -6,7 +6,7 @@ test("visitor reads the guide and reaches Apply", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/finance your boat like a boss/i);
 
   // Every Apply button goes straight to Vantage's tracked application (spec §5).
-  const heroApply = page.getByRole("link", { name: /start your application/i }).first();
+  const heroApply = page.getByRole("link", { name: /get preapproved now/i }).first();
   await expect(heroApply).toHaveAttribute("href", VANTAGE_APPLY_URL);
   await expect(heroApply).toHaveAttribute("rel", "noopener");
 
