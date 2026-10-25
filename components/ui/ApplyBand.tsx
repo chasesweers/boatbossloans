@@ -6,9 +6,11 @@ import { ApplyButton } from "./ApplyButton";
 export function ApplyBand({
   headline = "Let's get you on the water",
   body = "One short application. A Vantage lending specialist reviews your options across multiple marine lenders and explains them in plain language.",
+  cta = "Start your application",
 }: {
   headline?: string;
   body?: string;
+  cta?: string;
 }) {
   return (
     <section aria-label="Apply" className="relative isolate overflow-hidden bg-black py-20 md:py-28">
@@ -18,7 +20,7 @@ export function ApplyBand({
         <h2 className="max-w-xl text-[clamp(2.5rem,6vw,4.5rem)]">{headline}</h2>
         <p className="mt-4 max-w-xl text-lg text-white">{body}</p>
         <ApplyButton location="footer" className="mt-8">
-          Start your application
+          {cta}
         </ApplyButton>
       </div>
     </section>

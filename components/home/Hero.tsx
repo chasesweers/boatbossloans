@@ -25,7 +25,7 @@ export function Hero() {
           <p className="mt-6 text-lg leading-relaxed text-white md:text-xl">{hero.body}</p>
           <p className="mt-4 text-base font-semibold text-smoke">{hero.byline}</p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <ApplyButton location="hero">Start your application</ApplyButton>
+            <ApplyButton location="hero">Get Preapproved Now</ApplyButton>
             <Link href="/guide" className="btn btn-outline">
               Read the guide first
             </Link>
