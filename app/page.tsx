@@ -57,7 +57,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ApplyBand />
+      <ApplyBand cta="Get Preapproved Now" />
       <NewsletterStrip />
     </>
   );
